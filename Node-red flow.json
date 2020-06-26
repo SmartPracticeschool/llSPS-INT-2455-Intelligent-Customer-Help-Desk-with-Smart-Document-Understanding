@@ -1,0 +1,164 @@
+[
+    {
+        "id": "92381d44.68b0f",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7cf8bd86.ee3e84",
+        "type": "ui_form",
+        "z": "92381d44.68b0f",
+        "name": "User Input",
+        "label": "",
+        "group": "bf03792f.330958",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Enter your query",
+                "value": "input",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "input": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "353f4e68.ba5262"
+            ]
+        ]
+    },
+    {
+        "id": "8996f706.947c78",
+        "type": "ui_text",
+        "z": "92381d44.68b0f",
+        "group": "bf03792f.330958",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Your query",
+        "label": "Your query",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "353f4e68.ba5262",
+        "type": "function",
+        "z": "92381d44.68b0f",
+        "name": "Input Parser",
+        "func": "msg.payload = msg.payload.input;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "8996f706.947c78",
+                "67e2ef07.b6477"
+            ]
+        ]
+    },
+    {
+        "id": "67e2ef07.b6477",
+        "type": "watson-conversation-v1",
+        "z": "92381d44.68b0f",
+        "name": "",
+        "workspaceid": "3b25f79c-20b0-448e-bae4-90a3c90e31b6",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "service-endpoint": "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/a04919d9-1b07-496d-bfd4-b984e860c6f2",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 600,
+        "y": 180,
+        "wires": [
+            [
+                "32f8d1aa.c4868e"
+            ]
+        ]
+    },
+    {
+        "id": "652a405.de4ebc",
+        "type": "debug",
+        "z": "92381d44.68b0f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "32f8d1aa.c4868e",
+        "type": "function",
+        "z": "92381d44.68b0f",
+        "name": "Output parsing",
+        "func": "msg.payload = msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 720,
+        "y": 100,
+        "wires": [
+            [
+                "652a405.de4ebc",
+                "5975833.aeb227c"
+            ]
+        ]
+    },
+    {
+        "id": "5975833.aeb227c",
+        "type": "ui_text",
+        "z": "92381d44.68b0f",
+        "group": "bf03792f.330958",
+        "order": 6,
+        "width": 20,
+        "height": 5,
+        "name": "Response",
+        "label": "Agent",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 910,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bf03792f.330958",
+        "type": "ui_group",
+        "z": "",
+        "name": "Your Assistant",
+        "tab": "820c9dc4.9699f",
+        "order": 1,
+        "disp": true,
+        "width": "20",
+        "collapse": false
+    },
+    {
+        "id": "820c9dc4.9699f",
+        "type": "ui_tab",
+        "z": "",
+        "name": "UI",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]
